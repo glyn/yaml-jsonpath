@@ -608,7 +608,7 @@ func lexSubPath(l *lexer) stateFn {
 }
 
 func lexOptionalArrayIndex(l *lexer) stateFn {
-	if l.consumed(leftBracket, bracketQuote, bracketDoubleQuote, filterBegin) {
+	if l.consumed(leftBracket, bracketQuote, bracketDoubleQuote, filterBegin) { // FIXME: remove filterBegin?
 		subscript := false
 		for {
 			if l.consumed(rightBracket) {

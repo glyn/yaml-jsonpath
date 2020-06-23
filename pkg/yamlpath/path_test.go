@@ -1038,6 +1038,18 @@ another: entry`,
 			path:            `$[?(@==-42E-1)]`,
 			expectedStrings: []string{"-4.2\n"},
 		},
+		{
+			name:            "union of filters",
+			input:           `[{"key": 1}, {"key": 8}, {"key": 3}, {"key": 10}, {"key": 7}, {"key": 2}, {"key": 6}, {"key": 4}]`,
+			path:            `$[?(@.key<3),?(@.key>6)]`,
+			expectedStrings: []string{`{"key":1}`, `{"key":2}`, `{"key":8}`, `{"key":10}`, `{"key":7}`},
+		},
+		{
+			name:            "union of filter and array index",
+			input:           `[{"key": 1}, {"key": 8}, {"key": 3}, {"key": 10}, {"key": 7}, {"key": 2}, {"key": 6}, {"key": 4}]`,
+			path:            `$[?(@.key<3),1]`,
+			expectedStrings: []string{`{"key":1}`, `{"key":2}`, `{"key":8}`},
+		},
 	}
 
 	focussed := false

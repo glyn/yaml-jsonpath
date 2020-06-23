@@ -1801,6 +1801,23 @@ func TestLexer(t *testing.T) {
 				{typ: lexemeIdentity, val: ""},
 			},
 		},
+		{
+			name: "union of filters",
+			path: "$[?(@.key<3),?(@.key>6)]",
+			expected: []lexeme{
+				{typ: lexemeRoot, val: "$"},
+				{typ: lexemeFilterBegin, val: "[?("},
+				{typ: lexemeFilterIntegerLiteral, val: "1"},
+				{typ: lexemeFilterEquality, val: "=="},
+				{typ: lexemeFilterAt, val: "@"},
+				{typ: lexemeFilterOr, val: "||"},
+				{typ: lexemeFilterIntegerLiteral, val: "2"},
+				{typ: lexemeFilterEquality, val: "=="},
+				{typ: lexemeFilterAt, val: "@"},
+				{typ: lexemeFilterEnd, val: ")]"},
+				{typ: lexemeIdentity, val: ""},
+			},
+		},
 	}
 
 	focussed := false
